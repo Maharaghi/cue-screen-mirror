@@ -15,9 +15,9 @@ def get_available_leds():
     return leds
 
 def scaleImage(img):
-    # return img.resize((24, 7), resample=Image.LANCZOS)
-    # return img.resize((24, 7), resample=Image.ADAPTIVE)
-    return img.resize((24, 7), resample=Image.ANTIALIAS)
+    # return img.resize((24, 6), resample=Image.LANCZOS)
+    # return img.resize((24, 6), resample=Image.ADAPTIVE)
+    return img.resize((24, 6), resample=Image.ANTIALIAS)
 
 def getClosestPoint(c1, keyList):
     closest = 9999999
@@ -64,8 +64,7 @@ def main():
     xMin = np.min(x)
 
     # Make sure the keyvals X:Y are set to 24:6 (just because the keyboard has basically 6 rows and 24 keys as width)
-    # Change this as needed. Even though this is 24x6, the keymap and image is 24x7. 
-    # I honestly forgot to change this part to 24x7, but it seems to work better this way, so you should probably keep the Y res smaller than the picture.
+    # Change this as needed.
     for c in keyList:
         c[1] = ((c[1][0] - xMin)/normX * 24, (c[1][1] - yMin)/normY * 6)
 
@@ -75,10 +74,11 @@ def main():
 
     # Lets just map all the keys right now so we can skip checking the distance every frame
     keymap = []
-    for y in range(0, 7):
+    for y in range(6):
         keymap.append([])
         for x in range(0, 24):
-            key = getClosestPoint((x, y), keyList)
+            # We add 1 to y here, because apparently that makes the top row work properly.
+            key = getClosestPoint((x, y+1), keyList)
             keymap[y].append(key)
 
     # Use mss to capture screen
