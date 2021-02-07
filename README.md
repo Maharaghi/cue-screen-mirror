@@ -36,19 +36,18 @@ If you want to change some settings you can modify `main.py` to fit your needs.
 The line numbers may have changed, but it's a small program so it won't be hard to find.
 ```
 # Change the 24 and 6 to your desired X and Y values respectively.
-# I had to keep the Y one (1) less pixel than the image for a good result. (24x7 -> 24x6)
-[LINE 73]
+[LINE 68]
 for c in keyList:
   c[1] = ((c[1][0] - xMin)/normX * 24, (c[1][1] - yMin)/normY * 6)
 
 # If you want to change the resolution change this too
 [LINE 17]
 def scaleImage(img):
-  return img.resize((24, 7), resample=Image.ANTIALIAS)
+  return img.resize((24, 6), resample=Image.ANTIALIAS)
                      ^   ^
-# And also the 7 and 24 in this
-[LINE 78]
-for y in range(0, 7):
+# And also the 6 and 24 in this
+[LINE 77]
+for y in range(0, 6):
   keymap.append([])
   for x in range(0, 24):
     ...
